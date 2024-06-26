@@ -9,8 +9,8 @@ const EditChannel = ({ setIsEditing }) => {
   const [channelName, setChannelName] = useState(channel?.data?.name)
   const [selectedUsers, setSelectedUsers] = useState([])
   
-  const updateChannel = async (event) => {
-    event.preventDefault()
+  const updateChannel = async (e) => {
+    e.preventDefault()
     
     const nameChanged = channelName !== (channel.data.name || channel.data.id)
     

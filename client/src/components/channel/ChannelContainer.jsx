@@ -1,9 +1,9 @@
 import React from "react"
-import { Channel } from "stream-chat-react"
+import {Channel} from "stream-chat-react"
 import CustomMessageUi from "../message/CustomMessageUi"
-import { EmojiPicker } from "stream-chat-react/emojis"
+import {EmojiPicker} from "stream-chat-react/emojis"
 
-import { ChannelInner, CreateChannel, EditChannel } from ".."
+import {ChannelInner, CreateChannel, EditChannel} from ".."
 
 
 const EmptyState = () => (
@@ -13,18 +13,18 @@ const EmptyState = () => (
   </div>
 )
 
-const WrappedChannel = ({ children }) => {
+const WrappedChannel = ({children}) => {
   return <Channel
     EmptyStateIndicator={EmptyState}
     Message={CustomMessageUi}
     EmojiPicker={EmojiPicker}
   >{children}</Channel>
 }
-const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, createType }) => {
+const ChannelContainer = ({isCreating, setIsCreating, isEditing, setIsEditing, createType}) => {
   if (isCreating) {
     return (
       <div className="channel__container">
-        <CreateChannel createType={createType} setIsCreating={setIsCreating} />
+        <CreateChannel createType={createType} setIsCreating={setIsCreating}/>
       </div>
     )
   }
@@ -32,17 +32,15 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
   if (isEditing) {
     return (
       <div className="channel__container">
-        <EditChannel setIsEditing={setIsEditing} />
+        <EditChannel setIsEditing={setIsEditing}/>
       </div>
     )
   }
   
-  
   return (
     <div className=" channel__container">
-      <WrappedChannel
-      >
-        <ChannelInner setIsEditing={setIsEditing} />
+      <WrappedChannel>
+        <ChannelInner setIsEditing={setIsEditing}/>
       </WrappedChannel>
     </div>
   )

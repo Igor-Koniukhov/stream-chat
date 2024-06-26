@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useChatContext } from "stream-chat-react"
 import { ResultsDropdown } from "../index"
 import { SearchIcon } from "../../assets"
+import {TYPE_TEAM} from "../../utils/constants";
 
 const ChannelSearch = ({ setToggleContainer }) => {
   const { client, setActiveChannel } = useChatContext()
@@ -20,7 +21,7 @@ const ChannelSearch = ({ setToggleContainer }) => {
   const getChannels = async (text) => {
     try {
       const channelResponse = client.queryChannels({
-        type: "team",
+        type: TYPE_TEAM,
         name: { $autocomplete: text },
         members: { $in: [client.userID] },
       })
@@ -38,12 +39,12 @@ const ChannelSearch = ({ setToggleContainer }) => {
     }
   }
   
-  const onSearch = (event) => {
-    event.preventDefault()
+  const onSearch = (e) => {
+    e.preventDefault()
     
     setLoading(true)
-    setQuery(event.target.value)
-    getChannels(event.target.value)
+    setQuery(e.target.value)
+    getChannels(e.target.value)
   }
   
   const setChannel = (channel) => {

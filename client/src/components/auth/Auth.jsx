@@ -1,7 +1,17 @@
 import React, { useState } from "react"
 import Cookies from "universal-cookie"
 import axios from "axios"
-import { initialState, signinImage, URL } from "../../utils/constants"
+import {
+  AVATAR_URL,
+  FULL_NAME, HASHED_PASS,
+  initialState,
+  PHONE_NUMBER,
+  signinImage,
+  TOKEN,
+  URL,
+  USER_ID,
+  USER_NAME
+} from "../../utils/constants"
 import FormInput from "../ui/FormInput"
 
 const cookies = new Cookies()
@@ -23,15 +33,15 @@ const Auth = () => {
     })
     const { token, userId, hashedPassword, fullName } = data.data
     
-    cookies.set("token", token)
-    cookies.set("username", username)
-    cookies.set("fullName", fullName)
-    cookies.set("userId", userId)
+    cookies.set(TOKEN, token)
+    cookies.set(USER_NAME, username)
+    cookies.set(FULL_NAME, fullName)
+    cookies.set(USER_ID, userId)
     
     if (isSignup) {
-      cookies.set("phoneNumber", phoneNumber)
-      cookies.set("avatarURL", avatarURL)
-      cookies.set("hashedPassword", hashedPassword)
+      cookies.set(PHONE_NUMBER, phoneNumber)
+      cookies.set(AVATAR_URL, avatarURL)
+      cookies.set(HASHED_PASS, hashedPassword)
     }
     
     window.location.reload()
@@ -50,7 +60,7 @@ const Auth = () => {
           <form onSubmit={handleSubmit}>
             {isSignup && (
               <FormInput
-                name="fullName"
+                name={FULL_NAME}
                 type="text"
                 placeholder="Full Name"
                 handleChange={handleChange}
@@ -58,7 +68,7 @@ const Auth = () => {
               />
             )}
             <FormInput
-              name="username"
+              name={USER_NAME}
               type="text"
               placeholder="Username"
               handleChange={handleChange}
@@ -66,7 +76,7 @@ const Auth = () => {
             />
             {isSignup && (
               <FormInput
-                name="phoneNumber"
+                name={PHONE_NUMBER}
                 type="text"
                 placeholder="Phone Number"
                 handleChange={handleChange}
@@ -75,7 +85,7 @@ const Auth = () => {
             )}
             {isSignup && (
               <FormInput
-                name="avatarURL"
+                name={AVATAR_URL}
                 type="text"
                 placeholder="Avatar URL"
                 handleChange={handleChange}
