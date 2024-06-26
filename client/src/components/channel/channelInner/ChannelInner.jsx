@@ -16,6 +16,7 @@ const ChannelInner = ({ setIsEditing }) => {
       parent: message.parent,
       text: message.text,
     }
+    console.log(updatedMessage)
     
     if (giphyState) {
       updatedMessage = { ...updatedMessage, text: `/giphy ${message.text}` }
