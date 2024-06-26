@@ -1,10 +1,11 @@
+import React from "react"
 import { Avatar, MessageText, ReactionsList, useMessageContext } from "stream-chat-react"
 import CustomMessageUiActions from "./CustomMessageUiActions"
 import CustomMessageUiMetadata from "./CustomMessageUiMetadata"
-
+import MessageAttachments from "./MessageAttachments"
 
 const CustomMessageUi = () => {
-  const { isMyMessage, message } = useMessageContext()
+  const { isMyMessage, message, } = useMessageContext()
   const messageUiClassNames = ["custom-message-ui"]
   
   if (isMyMessage()) {
@@ -24,6 +25,7 @@ const CustomMessageUi = () => {
             <Avatar image={message.user?.image} name={message.user?.name || message.user?.id} />
             <MessageText />
           </div>
+          {message.attachments && <MessageAttachments attachments={message.attachments} />}
           <CustomMessageUiMetadata />
           <CustomMessageUiActions />
           <ReactionsList />
