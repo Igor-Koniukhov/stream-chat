@@ -1,27 +1,32 @@
-const { twilioClient, messagingServiceSid } = require("../utils/constants")
-
-const postMessage =(req, res) => {
-  console.log("fired")
-  const { message, user: sender, type, members } = req.body
-  
-  
-    members
-      .forEach(({ user }) => {
-        
-          twilioClient.messages.create({
-              body: `You have a new message from ${message.user.fullName} - ${message.text}`,
-              messagingServiceSid: messagingServiceSid,
-              to: +380953357230,
-            })
-            .then(() => console.log("Message sent!"))
-            .catch((err) => console.log(err))
-        
-      })
-    
-    return res.status(200).send("Message sent!")
-  
-  
-  //return res.status(200).send("Not a new message request")
+const {twilioClient, messagingServiceSid} = require("../utils/constants")
+const validatePhoneNumber = (phoneNumber) => {
+  const phoneNumberRegex = /^\+380\d{9}$/;
+  return phoneNumberRegex.test(phoneNumber);
 }
 
-module.exports={postMessage}
+const postMessage = (req, res) => {
+  const {msg, channelMembers} = req.body
+ 
+  Object.values(channelMembers)
+    .forEach(({user}) => {
+      
+      if (!validatePhoneNumber(user.phoneNumber)) {
+        console.log(user.phoneNumber, " not valid format")
+      }
+      
+      if (!user.online && validatePhoneNumber(user.phoneNumber)) {
+        twilioClient.messages.create({
+            body: `You have a new message from ${msg.user?.fullName ?? ""} - ${msg.text}`,
+            messagingServiceSid: messagingServiceSid,
+            to: user.phoneNumber,
+          })
+          .then(() => console.log("Message sent!"))
+          .catch((err) => console.log(err))
+      }
+    })
+  
+  return res.status(200).send("Message sent!")
+  
+}
+
+module.exports = {postMessage}

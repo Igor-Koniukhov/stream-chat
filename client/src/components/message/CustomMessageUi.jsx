@@ -5,7 +5,7 @@ import CustomMessageUiMetadata from "./CustomMessageUiMetadata"
 import MessageAttachments from "./MessageAttachments"
 
 const CustomMessageUi = () => {
-  const { isMyMessage, message } = useMessageContext()
+  const { isMyMessage, message, } = useMessageContext()
   const messageUiClassNames = ["custom-message-ui"]
   
   if (isMyMessage()) {
